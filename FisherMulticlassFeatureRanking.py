@@ -9,6 +9,7 @@ import numpy as np
 import pandas as pd
 class FisherMultiClassFeatureRanker(object):
     '''
+    Class for Fisher Multi-Class Feature Ranking
     '''
 
     def fisherMultiClassFeatureRankingDigits(self,data=None,labels=None,method=1):
@@ -232,11 +233,17 @@ if __name__ == '__main__':
     '''
     # Open the iris data set
     df = pd.read_csv("../data/iris.csv")
-    df['cat'] =pd.factorize(df['species'])[0]
+    #df['cat'] =pd.factorize(df['species'])[0]
     print(df.head())
-    y = df[['species','cat']]
-    x = df.drop(['species','cat'],axis=1).values
-
+    
+    y = df['species']
+    x = df.drop('species',axis=1)
+    fisherRanker = FisherMultiClassFeatureRanker()
+    
     print("x.shape {}".format(x.shape))
     print("y.shape {}".format(y.shape))
-    print("end")
+    print("Performing Ranking")
+    # Let's do Iris
+    model = fisherRanker.fisherMultiClassFeatureRankingIris(x,y)
+    print("Ranking done")
+    print(model)
